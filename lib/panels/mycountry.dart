@@ -133,17 +133,17 @@ class PhilPanel extends StatelessWidget {
                   svg: "human.svg",
                 ),
               ]),
-               Container(
-                 width: MediaQuery.of(context).size.width,
-                 height: 80,
-                                child: StatusPanel(
-                    title: 'RECOVERED',
-                    panelColor: Colors.green[700],
-                    textColor: Colors.green[50],
-                    count: fo8.withoutFractionDigits.toString(),
-                    svg:  "patient.svg",
-                  ),
-               ),
+              //  Container(
+              //    width: MediaQuery.of(context).size.width,
+              //    height: 80,
+              //                   child: StatusPanel(
+              //       title: 'RECOVERED',
+              //       panelColor: Colors.green[700],
+              //       textColor: Colors.green[50],
+              //       count: fo8.withoutFractionDigits.toString(),
+              //       svg:  "patient.svg",
+              //     ),
+              //  ),
         ],
       ),
     );

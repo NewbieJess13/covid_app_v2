@@ -98,7 +98,7 @@ class WorldWidePanel extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 3,
+                childAspectRatio: 2.3,
               ),
               children: <Widget>[
                 StatusPanel(
@@ -124,8 +124,8 @@ class WorldWidePanel extends StatelessWidget {
                 ),
                 StatusPanel(
                   title: 'CRITICAL',
-                  panelColor: Colors.red[900],
-                  textColor: Colors.red[50],
+                  panelColor: Colors.deepPurple[800],
+                  textColor: Colors.purple[50],
                   count: fo6.withoutFractionDigits.toString(),
                   svg: "hospital.svg",
                 ),
@@ -157,40 +157,48 @@ class StatusPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Container(
-      padding: const EdgeInsets.only(top: 10,bottom: 5),
+      padding: const EdgeInsets.only(top: 10, bottom: 5),
       decoration: BoxDecorations.boxDecorationStyle.copyWith(color: panelColor),
       margin: const EdgeInsets.all(5),
-      height: 20,
+      height: 25,
       width: width / 2,
       //color: panelColor,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded(
-            flex:2,
-            child: SvgPicture.asset(
-              'assets/svg/' + svg,
-              height: 30,
-              width: 30,
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
+                SvgPicture.asset(
+                  'assets/svg/' + svg,
+                  height: 21,
+                  width: 21,
+                ),
+                SizedBox(width: 5),
                 Text(title,
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 13,
                       fontWeight: FontWeight.bold,
                       color: textColor,
                     )),
-                Spacer(),
+              ],
+            ),
+          ),
+          Divider(
+            color: Colors.white,
+            thickness: 1,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
                 Text(
                   count,
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: textColor,
                   ),
@@ -205,14 +213,14 @@ class StatusPanel extends StatelessWidget {
                     : Text(
                         'Rate: ' + rate + '%',
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 13,
                           fontWeight: FontWeight.bold,
                           color: textColor,
                         ),
                       )
               ],
             ),
-          ),
+          )
         ],
       ),
     );

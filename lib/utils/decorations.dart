@@ -5,7 +5,7 @@ class BoxDecorations {
   BoxDecorations._();
 
   static final boxDecorationStyle =  BoxDecoration(
-    borderRadius: BorderRadius.circular(5),
+    borderRadius: BorderRadius.circular(8),
 //    boxShadow: [
 //      BoxShadow(
 //          //color: Colors.black,

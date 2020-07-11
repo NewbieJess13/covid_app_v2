@@ -106,15 +106,7 @@ class PhilPanel extends StatelessWidget {
                   textColor: Colors.red[50],
                   count: fo.withoutFractionDigits.toString(),
                   svg: "infected.svg",
-                ),
-                StatusPanel(
-                  title: 'Recovered',
-                  panelColor: Colors.green[800],
-                  textColor: Colors.green[50],
-                  count: fo2.withoutFractionDigits.toString(),
-                  rate: recoveryRate.toStringAsFixed(2),
-                  svg: "patient.svg",
-                ),
+                ),               
                 StatusPanel(
                   title: 'Deaths',
                   panelColor: Colors.grey[900],
@@ -122,6 +114,14 @@ class PhilPanel extends StatelessWidget {
                   count: fo1.withoutFractionDigits.toString(),
                   rate: fatalRate.toStringAsFixed(2),
                   svg: "coffin.svg",
+                ),
+                 StatusPanel(
+                  title: 'Recovered',
+                  panelColor: Colors.green[800],
+                  textColor: Colors.green[50],
+                  count: fo2.withoutFractionDigits.toString(),
+                  rate: recoveryRate.toStringAsFixed(2),
+                  svg: "patient.svg",
                 ),
                 StatusPanel(
                   title: 'Active',
@@ -221,7 +221,7 @@ class StatusPanel extends StatelessWidget {
                   height: 21,
                   width: 21,
                 ),
-                SizedBox(width: 5),
+                SizedBox(width: 8),
                 Text(title,
                     style: TextStyle(
                       fontSize: 13,

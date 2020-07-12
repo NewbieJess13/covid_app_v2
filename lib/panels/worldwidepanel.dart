@@ -27,6 +27,10 @@ class WorldWidePanel extends StatelessWidget {
         FlutterMoneyFormatter(amount: worldData['critical'].toDouble());
     FlutterMoneyFormatter fmf7 =
         FlutterMoneyFormatter(amount: worldData['active'].toDouble());
+    FlutterMoneyFormatter currentPopulation =
+        FlutterMoneyFormatter(amount: worldData['population'].toDouble());
+    FlutterMoneyFormatter tested =
+        FlutterMoneyFormatter(amount: worldData['tests'].toDouble());
     MoneyFormatterOutput fo = fmf.output;
     MoneyFormatterOutput fo1 = fmf1.output;
     MoneyFormatterOutput fo2 = fmf2.output;
@@ -35,6 +39,8 @@ class WorldWidePanel extends StatelessWidget {
     MoneyFormatterOutput fo5 = fmf5.output;
     MoneyFormatterOutput fo6 = fmf6.output;
     MoneyFormatterOutput fo7 = fmf7.output;
+    MoneyFormatterOutput currentPop = currentPopulation.output;
+    MoneyFormatterOutput tested1 = tested.output;
 
     double num = worldData['deaths'] / worldData['cases'];
     double fatalRate = num * 100;
@@ -45,10 +51,47 @@ class WorldWidePanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Row(mainAxisAlignment: MainAxisAlignment.start,
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text('Current Population:',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black54)),
+                          Text(currentPop.withoutFractionDigits.toString(),
+                              style: TextStyle(
+                                  fontSize: 25, fontWeight: FontWeight.w800)),
+                        ]),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text('Tested:',
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black54)),
+                        Text(tested1.withoutFractionDigits.toString(),
+                            style: TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.w800)),
+                      ],
+                    ),
+                  ),
+                ]),
+          ),
+          SizedBox(height: 20),
           Text('Global',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
           GridView(
-            padding: const EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -80,11 +123,11 @@ class WorldWidePanel extends StatelessWidget {
                   svg: "coffin.svg",
                 ),
                 StatusPanel(
-                  title: 'TESTED',
-                  panelColor: Colors.blue[800],
-                  textColor: Colors.blue[50],
-                  count: fo3.withoutFractionDigits.toString(),
-                  svg: "search.svg",
+                  title: 'Active',
+                  panelColor: Colors.grey[500],
+                  textColor: Colors.grey[900],
+                  count: fo7.withoutFractionDigits.toString(),
+                  svg: "human.svg",
                 ),
               ]),
           SizedBox(
@@ -98,7 +141,7 @@ class WorldWidePanel extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 3,
+                childAspectRatio: 2.3,
               ),
               children: <Widget>[
                 StatusPanel(
@@ -116,16 +159,16 @@ class WorldWidePanel extends StatelessWidget {
                   svg: "coffin.svg",
                 ),
                 StatusPanel(
-                  title: 'ACTIVE',
-                  panelColor: Colors.grey[500],
-                  textColor: Colors.grey[900],
-                  count: fo7.withoutFractionDigits.toString(),
-                  svg: "human.svg",
+                  title: 'Recovered',
+                   panelColor: Colors.green[700],
+                  textColor: Colors.green[50],
+                  count: fo2.withoutFractionDigits.toString(),
+                  svg: "patient.svg",
                 ),
                 StatusPanel(
                   title: 'CRITICAL',
-                  panelColor: Colors.red[900],
-                  textColor: Colors.red[50],
+                  panelColor: Colors.deepPurple[800],
+                  textColor: Colors.purple[50],
                   count: fo6.withoutFractionDigits.toString(),
                   svg: "hospital.svg",
                 ),
@@ -157,40 +200,48 @@ class StatusPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Container(
-      padding: const EdgeInsets.only(top: 10,bottom: 5),
+      padding: const EdgeInsets.only(top: 10, bottom: 5),
       decoration: BoxDecorations.boxDecorationStyle.copyWith(color: panelColor),
       margin: const EdgeInsets.all(5),
-      height: 20,
+      height: 25,
       width: width / 2,
       //color: panelColor,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded(
-            flex:2,
-            child: SvgPicture.asset(
-              'assets/svg/' + svg,
-              height: 30,
-              width: 30,
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
+                SvgPicture.asset(
+                  'assets/svg/' + svg,
+                  height: 21,
+                  width: 21,
+                ),
+                SizedBox(width: 5),
                 Text(title,
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 13,
                       fontWeight: FontWeight.bold,
                       color: textColor,
                     )),
-                Spacer(),
+              ],
+            ),
+          ),
+          Divider(
+            color: Colors.white,
+            thickness: 1,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
                 Text(
                   count,
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: textColor,
                   ),
@@ -205,14 +256,14 @@ class StatusPanel extends StatelessWidget {
                     : Text(
                         'Rate: ' + rate + '%',
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 13,
                           fontWeight: FontWeight.bold,
                           color: textColor,
                         ),
                       )
               ],
             ),
-          ),
+          )
         ],
       ),
     );

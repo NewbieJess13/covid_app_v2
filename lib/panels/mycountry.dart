@@ -55,7 +55,7 @@ class PhilPanel extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal:10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Row(mainAxisAlignment: MainAxisAlignment.start,
                 // crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -90,7 +90,13 @@ class PhilPanel extends StatelessWidget {
                   ),
                 ]),
           ),
-              SizedBox(height:20),
+          Divider(
+            indent: 5,
+            endIndent: 5,
+          ),
+          SizedBox(height: 20),
+          Text('Total',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800)),
           GridView(
               padding: const EdgeInsets.all(0),
               shrinkWrap: true,
@@ -106,21 +112,21 @@ class PhilPanel extends StatelessWidget {
                   textColor: Colors.red[50],
                   count: fo.withoutFractionDigits.toString(),
                   svg: "infected.svg",
-                ),               
+                ),
                 StatusPanel(
                   title: 'Deaths',
                   panelColor: Colors.grey[900],
                   textColor: Colors.white,
                   count: fo1.withoutFractionDigits.toString(),
-                  rate: fatalRate.toStringAsFixed(2),
+                  // rate: fatalRate.toStringAsFixed(2),
                   svg: "coffin.svg",
                 ),
-                 StatusPanel(
+                StatusPanel(
                   title: 'Recovered',
                   panelColor: Colors.green[800],
                   textColor: Colors.green[50],
                   count: fo2.withoutFractionDigits.toString(),
-                  rate: recoveryRate.toStringAsFixed(2),
+                  // rate: recoveryRate.toStringAsFixed(2),
                   svg: "patient.svg",
                 ),
                 StatusPanel(
@@ -134,6 +140,10 @@ class PhilPanel extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
+          Divider(
+            indent: 5,
+            endIndent: 5,
+          ),
           Text('Today',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800)),
           GridView(
@@ -142,7 +152,7 @@ class PhilPanel extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 2.3,
+                childAspectRatio: 2.2,
               ),
               children: <Widget>[
                 StatusPanel(
@@ -151,23 +161,22 @@ class PhilPanel extends StatelessWidget {
                   textColor: Colors.red[50],
                   count: fo5.withoutFractionDigits.toString(),
                   svg: "infected.svg",
-                ),  
-                  StatusPanel(
+                ),
+                StatusPanel(
                   title: 'Recoveries',
                   panelColor: Colors.green[800],
                   textColor: Colors.green[100],
                   count: fo8.withoutFractionDigits.toString(),
                   svg: "patient.svg",
                 ),
-            
-                     StatusPanel(
+                StatusPanel(
                   title: 'Deaths',
                   panelColor: Colors.grey[900],
                   textColor: Colors.white,
                   count: fo4.withoutFractionDigits.toString(),
                   svg: "coffin.svg",
                 ),
-                  StatusPanel(
+                StatusPanel(
                   title: 'Critical',
                   panelColor: Colors.deepPurple[800],
                   textColor: Colors.purple[50],
@@ -208,68 +217,65 @@ class StatusPanel extends StatelessWidget {
       height: 25,
       width: width / 2,
       //color: panelColor,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                SvgPicture.asset(
-                  'assets/svg/' + svg,
-                  height: 21,
-                  width: 21,
-                ),
-                SizedBox(width: 8),
-                Text(title,
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: textColor,
-                    )),
-              ],
-            ),
-          ),
-          Divider(
-            color: Colors.white,
-            thickness: 1,
-            indent: 5,
-            endIndent: 5,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  count,
+      child: Wrap(children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              SvgPicture.asset(
+                'assets/svg/' + svg,
+                height: 21,
+                width: 21,
+              ),
+              SizedBox(width: 8),
+              Text(title,
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 13,
                     fontWeight: FontWeight.bold,
                     color: textColor,
-                  ),
+                  )),
+            ],
+          ),
+        ),
+        Divider(
+          color: Colors.white,
+          thickness: 1,
+          indent: 5,
+          endIndent: 5,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                count,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: textColor,
                 ),
-                SizedBox(
-                  height: 5,
-                ),
-                rate == ''
-                    ? Container(
-                        padding: EdgeInsets.all(0),
-                      )
-                    : Text(
-                        'Rate: ' + rate + '%',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: textColor,
-                        ),
-                      )
-              ],
-            ),
-          )
-        ],
-      ),
+              ),
+              // SizedBox(
+              //   height: 5,
+              // ),
+              // rate == ''
+              //     ? Container(
+              //         padding: EdgeInsets.all(0),
+              //       )
+              //     : Text(
+              //         'Rate: ' + rate + '%',
+              //         style: TextStyle(
+              //           fontSize: 13,
+              //           fontWeight: FontWeight.bold,
+              //           color: textColor,
+              //         ),
+              //       )
+            ],
+          ),
+        ),
+      ]),
     );
   }
 }

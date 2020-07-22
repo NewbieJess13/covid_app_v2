@@ -111,7 +111,7 @@ class WorldWidePanel extends StatelessWidget {
                   panelColor: Colors.green[700],
                   textColor: Colors.green[50],
                   count: fo2.withoutFractionDigits.toString(),
-                  rate: recoveryRate.toStringAsFixed(2),
+                  // rate: recoveryRate.toStringAsFixed(2),
                   svg: "patient.svg",
                 ),
                 StatusPanel(
@@ -119,7 +119,7 @@ class WorldWidePanel extends StatelessWidget {
                   panelColor: Colors.grey[900],
                   textColor: Colors.white,
                   count: fo1.withoutFractionDigits.toString(),
-                  rate: fatalRate.toStringAsFixed(2),
+                  // rate: fatalRate.toStringAsFixed(2),
                   svg: "coffin.svg",
                 ),
                 StatusPanel(
@@ -141,7 +141,7 @@ class WorldWidePanel extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 2.3,
+                childAspectRatio: 2.2,
               ),
               children: <Widget>[
                 StatusPanel(
@@ -160,7 +160,7 @@ class WorldWidePanel extends StatelessWidget {
                 ),
                 StatusPanel(
                   title: 'Recovered',
-                   panelColor: Colors.green[700],
+                  panelColor: Colors.green[700],
                   textColor: Colors.green[50],
                   count: fo2.withoutFractionDigits.toString(),
                   svg: "patient.svg",
@@ -206,8 +206,8 @@ class StatusPanel extends StatelessWidget {
       height: 25,
       width: width / 2,
       //color: panelColor,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Wrap(
+        // crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -249,18 +249,18 @@ class StatusPanel extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
-                rate == ''
-                    ? Container(
-                        padding: EdgeInsets.all(0),
-                      )
-                    : Text(
-                        'Rate: ' + rate + '%',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: textColor,
-                        ),
-                      )
+                // rate == ''
+                //     ? Container(
+                //         padding: EdgeInsets.all(0),
+                //       )
+                //     : Text(
+                //         'Rate: ' + rate + '%',
+                //         style: TextStyle(
+                //           fontSize: 13,
+                //           fontWeight: FontWeight.bold,
+                //           color: textColor,
+                //         ),
+                //       )
               ],
             ),
           )

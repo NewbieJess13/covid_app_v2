@@ -46,34 +46,32 @@ class _HomePageState extends State<HomePage>
     });
   }
 
-  List philCovidTimeLine = [];
-  List output = [];
-  _fetchListData() async {
-    http.Response response = await http.get(
-        'https://api.apify.com/v2/datasets/sFSef5gfYg3soj8mb/items?format=json&clean=1');
-    philCovidTimeLine = json.decode(response.body);
-    // return philCovidTimeLine;
-    setState(() {
-      output = philCovidTimeLine
-          .getRange(philCovidTimeLine.length - 5, philCovidTimeLine.length)
-          .toList();
-    });
+  // List philCovidTimeLine = [];
+  // List output = [];
+  // _fetchListData() async {
+  //   http.Response response = await http.get(
+  //       'https://api.apify.com/v2/datasets/sFSef5gfYg3soj8mb/items?format=json&clean=1');
+  //   philCovidTimeLine = json.decode(response.body);
+  //   // return philCovidTimeLine;
+  //   setState(() {
+  //     output = philCovidTimeLine
+  //         .getRange(philCovidTimeLine.length - 5, philCovidTimeLine.length)
+  //         .toList();
+  //   });
 
-    print(output.length);
-  }
+  //   print(output.length);
+  // }
 
   Future fetchData() async {
     fetchWorldWideData();
     fetchCountryData();
     fetchPhilData();
-    _fetchListData();
   }
 
   TabController controller;
 
   @override
   void initState() {
-
     fetchData();
     super.initState();
     controller = TabController(
@@ -241,7 +239,7 @@ class _HomePageState extends State<HomePage>
               backgroundColor: Colors.transparent,
               bottom: TabBar(
                 indicator: UnderlineTabIndicator(
-                    borderSide: BorderSide(width: 3.5,color: Colors.white),
+                    borderSide: BorderSide(width: 3.5, color: Colors.white),
                     insets: EdgeInsets.symmetric(horizontal: 25.0)),
                 tabs: [
                   Tab(
@@ -267,8 +265,10 @@ class _HomePageState extends State<HomePage>
         body: TabBarView(
           controller: controller,
           children: <Widget>[
-            PhilippinesTab(philData: philippinesData,),
-            GlobalData(countryData:countryData,worldData:worldData)
+            PhilippinesTab(
+              philData: philippinesData,
+            ),
+            GlobalData(countryData: countryData, worldData: worldData)
           ],
         ),
       ),

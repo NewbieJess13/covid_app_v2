@@ -6,8 +6,9 @@ class MyCountryV2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // padding: EdgeInsets.symmetric(vertical: 15),
       child: GridView(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -20,6 +21,7 @@ class MyCountryV2 extends StatelessWidget {
             title: 'Confirmed Cases',
             colors: [Colors.grey[100], Colors.grey[400]],
             img: 'assets/images/cases.png',
+            shadowColor: Colors.black.withOpacity(0.4),
           ),
           DataCard(
             newCount: 1000,
@@ -28,6 +30,7 @@ class MyCountryV2 extends StatelessWidget {
             title: 'Recoveries',
             colors: [Colors.green[50], Colors.green[700]],
             img: 'assets/images/cases.png',
+            shadowColor: Colors.black.withOpacity(0.4),
           ),
           DataCard(
             newCount: 89,
@@ -36,6 +39,7 @@ class MyCountryV2 extends StatelessWidget {
             title: 'Deaths',
             colors: [Colors.red[50], Colors.red[700]],
             img: 'assets/images/cases.png',
+            shadowColor: Colors.black.withOpacity(0.4),
           ),
         ],
       ),
@@ -50,6 +54,7 @@ class DataCard extends StatelessWidget {
   final String title;
   final String img;
   final List<Color> colors;
+  final Color shadowColor;
 
   const DataCard(
       {Key key,
@@ -58,7 +63,8 @@ class DataCard extends StatelessWidget {
       this.type,
       this.title,
       this.colors,
-      this.img})
+      this.img,
+      this.shadowColor})
       : super(key: key);
 
   @override
@@ -66,9 +72,16 @@ class DataCard extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     return Container(
       //padding: EdgeInsets.symmetric(horizontal: 15),
-      height: 250,
+      height: 255,
       width: width - 25,
       decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+                color: shadowColor,
+                spreadRadius: 3,
+                blurRadius: 2,
+                offset: Offset(1, 3))
+          ],
           gradient:
               LinearGradient(begin: Alignment.topLeft, end: Alignment(0.8, 0.1),
                   // colors: [Colors.grey[100], Colors.grey[400]]

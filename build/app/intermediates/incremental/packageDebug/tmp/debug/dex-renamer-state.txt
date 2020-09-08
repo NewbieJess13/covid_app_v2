@@ -1,4 +1,4 @@
-#Sat Aug 01 08:32:39 CST 2020
-base.0=C\:\\Users\\John Rey Katigbak\\Desktop\\jes\\covid_app_v2\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+#Tue Sep 08 11:13:40 SGT 2020
+base.0=C\:\\Users\\Tonibels\\Desktop\\Projects\\covid_app_v2\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

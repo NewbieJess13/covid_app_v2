@@ -28,9 +28,7 @@ class _PhilippinesTabState extends State<PhilippinesTab> {
             //         padding:
             //             const EdgeInsets.only(left: 5.0, right: 5.0),
             //         child: DonutPieChart(philippinesData)),
-            SizedBox(
-              height: 10,
-            ),
+          
             widget.philData == null
                 ? Container(
                     padding: EdgeInsets.all(55),
@@ -40,7 +38,7 @@ class _PhilippinesTabState extends State<PhilippinesTab> {
                     padding: const EdgeInsets.only(left: 5.0, right: 5.0),
                     // child: PhilPanel(
                     //   philData: widget.philData,
-                    child: MyCountryV2(),
+                    child: PhilPanel(philData: widget.philData,),
                   ),
             SizedBox(
               height: 15,

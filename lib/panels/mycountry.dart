@@ -1,3 +1,6 @@
+import 'dart:wasm';
+
+import 'package:countup/countup.dart';
 import 'package:covid_app_v2/utils/decorations.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:flutter/material.dart';
@@ -11,40 +14,6 @@ class PhilPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FlutterMoneyFormatter fmf =
-        FlutterMoneyFormatter(amount: philData['cases'].toDouble());
-    FlutterMoneyFormatter fmf1 =
-        FlutterMoneyFormatter(amount: philData['deaths'].toDouble());
-    FlutterMoneyFormatter fmf2 =
-        FlutterMoneyFormatter(amount: philData['recovered'].toDouble());
-    FlutterMoneyFormatter fmf3 =
-        FlutterMoneyFormatter(amount: philData['tests'].toDouble());
-    FlutterMoneyFormatter fmf4 =
-        FlutterMoneyFormatter(amount: philData['todayDeaths'].toDouble());
-    FlutterMoneyFormatter fmf5 =
-        FlutterMoneyFormatter(amount: philData['todayCases'].toDouble());
-    FlutterMoneyFormatter fmf6 =
-        FlutterMoneyFormatter(amount: philData['critical'].toDouble());
-    FlutterMoneyFormatter fmf7 =
-        FlutterMoneyFormatter(amount: philData['active'].toDouble());
-    FlutterMoneyFormatter fmf8 =
-        FlutterMoneyFormatter(amount: philData['todayRecovered'].toDouble());
-    FlutterMoneyFormatter currentPopulation =
-        FlutterMoneyFormatter(amount: philData['population'].toDouble());
-    FlutterMoneyFormatter tested =
-        FlutterMoneyFormatter(amount: philData['tests'].toDouble());
-    MoneyFormatterOutput fo = fmf.output;
-    MoneyFormatterOutput fo1 = fmf1.output;
-    MoneyFormatterOutput fo2 = fmf2.output;
-    MoneyFormatterOutput fo3 = fmf3.output;
-    MoneyFormatterOutput fo4 = fmf4.output;
-    MoneyFormatterOutput fo5 = fmf5.output;
-    MoneyFormatterOutput fo6 = fmf6.output;
-    MoneyFormatterOutput fo7 = fmf7.output;
-    MoneyFormatterOutput fo8 = fmf8.output;
-    MoneyFormatterOutput currentPop = currentPopulation.output;
-    MoneyFormatterOutput tested1 = tested.output;
-
     double num = philData['deaths'] / philData['cases'];
     double fatalRate = num * 100;
     double num1 = philData['recovered'] / philData['cases'];
@@ -68,9 +37,16 @@ class PhilPanel extends StatelessWidget {
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black54)),
-                          Text(currentPop.withoutFractionDigits.toString(),
-                              style: TextStyle(
-                                  fontSize: 25, fontWeight: FontWeight.w800)),
+                          Countup(
+                            begin: 0,
+                            end: philData['population'].toDouble(),
+                            duration: Duration(seconds: 1),
+                            separator: ',',
+                            style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black87),
+                          ),
                         ]),
                   ),
                   Expanded(
@@ -82,9 +58,16 @@ class PhilPanel extends StatelessWidget {
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black54)),
-                        Text(tested1.withoutFractionDigits.toString(),
-                            style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.w800)),
+                        Countup(
+                          begin: 0,
+                          end: philData['tests'].toDouble(),
+                          duration: Duration(seconds: 1),
+                          separator: ',',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87),
+                        ),
                       ],
                     ),
                   ),
@@ -110,14 +93,14 @@ class PhilPanel extends StatelessWidget {
                   title: 'Cases',
                   panelColor: Colors.red[600],
                   textColor: Colors.red[50],
-                  count: fo.withoutFractionDigits.toString(),
+                  count: philData['cases'].toDouble(),
                   svg: "infected.svg",
                 ),
                 StatusPanel(
                   title: 'Deaths',
                   panelColor: Colors.grey[900],
                   textColor: Colors.white,
-                  count: fo1.withoutFractionDigits.toString(),
+                  count: philData['deaths'].toDouble(),
                   // rate: fatalRate.toStringAsFixed(2),
                   svg: "coffin.svg",
                 ),
@@ -125,7 +108,7 @@ class PhilPanel extends StatelessWidget {
                   title: 'Recovered',
                   panelColor: Colors.green[800],
                   textColor: Colors.green[50],
-                  count: fo2.withoutFractionDigits.toString(),
+                  count: philData['recovered'].toDouble(),
                   // rate: recoveryRate.toStringAsFixed(2),
                   svg: "patient.svg",
                 ),
@@ -133,7 +116,7 @@ class PhilPanel extends StatelessWidget {
                   title: 'Active',
                   panelColor: Colors.blue[800],
                   textColor: Colors.blue[50],
-                  count: fo7.withoutFractionDigits.toString(),
+                  count: philData['active'].toDouble(),
                   svg: "search.svg",
                 ),
               ]),
@@ -144,46 +127,52 @@ class PhilPanel extends StatelessWidget {
             indent: 5,
             endIndent: 5,
           ),
-          Text('Today',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800)),
+          Text(
+            'Today',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
           GridView(
-              padding: const EdgeInsets.all(0),
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 2.2,
+            padding: const EdgeInsets.all(0),
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 2.2,
+            ),
+            children: <Widget>[
+              StatusPanel(
+                title: 'Cases',
+                panelColor: Colors.red[700],
+                textColor: Colors.red[50],
+                count: philData['todayCases'].toDouble(),
+                svg: "infected.svg",
               ),
-              children: <Widget>[
-                StatusPanel(
-                  title: 'Cases',
-                  panelColor: Colors.red[700],
-                  textColor: Colors.red[50],
-                  count: fo5.withoutFractionDigits.toString(),
-                  svg: "infected.svg",
-                ),
-                StatusPanel(
-                  title: 'Recoveries',
-                  panelColor: Colors.green[800],
-                  textColor: Colors.green[100],
-                  count: fo8.withoutFractionDigits.toString(),
-                  svg: "patient.svg",
-                ),
-                StatusPanel(
-                  title: 'Deaths',
-                  panelColor: Colors.grey[900],
-                  textColor: Colors.white,
-                  count: fo4.withoutFractionDigits.toString(),
-                  svg: "coffin.svg",
-                ),
-                StatusPanel(
-                  title: 'Critical',
-                  panelColor: Colors.deepPurple[800],
-                  textColor: Colors.purple[50],
-                  count: fo6.withoutFractionDigits.toString(),
-                  svg: "hospital.svg",
-                ),
-              ]),
+              StatusPanel(
+                title: 'Recoveries',
+                panelColor: Colors.green[800],
+                textColor: Colors.green[100],
+                count: philData['todayRecovered'].toDouble(),
+                svg: "patient.svg",
+              ),
+              StatusPanel(
+                title: 'Deaths',
+                panelColor: Colors.grey[900],
+                textColor: Colors.white,
+                count: philData['todayDeaths'].toDouble(),
+                svg: "coffin.svg",
+              ),
+              StatusPanel(
+                title: 'Critical',
+                panelColor: Colors.deepPurple[800],
+                textColor: Colors.purple[50],
+                count: philData['critical'].toDouble(),
+                svg: "hospital.svg",
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -194,18 +183,18 @@ class StatusPanel extends StatelessWidget {
   final Color panelColor;
   final Color textColor;
   final String title;
-  final String count;
+  final double count;
   final String rate;
   final String svg;
-  const StatusPanel(
-      {Key key,
-      this.panelColor,
-      this.textColor,
-      this.title,
-      this.count,
-      this.rate = '',
-      this.svg})
-      : super(key: key);
+  const StatusPanel({
+    Key key,
+    this.panelColor,
+    this.textColor,
+    this.title,
+    this.count,
+    this.rate = '',
+    this.svg,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -229,12 +218,14 @@ class StatusPanel extends StatelessWidget {
                 width: 21,
               ),
               SizedBox(width: 8),
-              Text(title,
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: textColor,
-                  )),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  color: textColor,
+                ),
+              ),
             ],
           ),
         ),
@@ -249,13 +240,15 @@ class StatusPanel extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                count,
+              Countup(
+                begin: 0,
+                end: count,
+                duration: Duration(milliseconds: 1500),
+                separator: ',',
                 style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: textColor,
-                ),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
               // SizedBox(
               //   height: 5,
